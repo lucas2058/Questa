@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+void insertionSort(int arr[], int n) {
+    int i, j, key;
+    for (i = 1; i < n; i++) {
+        key = arr[i];
+        j = i - 1;
+
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+int buscaBinaria(int arr[], int n, int valor) {
+    int inicio = 0, fim = n - 1, meio;
+
+    while (inicio <= fim) {
+        meio = (inicio + fim) / 2;
+
+        if (arr[meio] == valor) {
+            return meio; // Valor encontrado
+        } else if (arr[meio] < valor) {
+            inicio = meio + 1; // Procura na metade direita
+        } else {
+            fim = meio - 1; // Procura na metade esquerda
+        }
+    }
+
+    return -1; // Valor não encontrado
+}
+
+int main() {
+    int n, i, valor, resultado;
+
+    printf("Digite o número de elementos na lista: ");
+    scanf("%d", &n);
+
+    int arr[n];
+
+    printf("Digite os números inteiros:\n");
+    for (i = 0; i < n; i++) {
+        printf("Número %d: ", i + 1);
+        scanf("%d", &arr[i]);
+    }
+
+    insertionSort(arr, n);
+
+    printf("Digite o valor que deseja buscar: ");
+    scanf("%d", &valor);
+
+    resultado = buscaBinaria(arr, n, valor);
+
+    if (resultado != -1) {
+        printf("Valor %d encontrado na posição %d.\n", valor, resultado + 1);
+    } else {
+        printf("Valor %d não encontrado na lista.\n", valor);
+    }
+
+    return 0;
+}
